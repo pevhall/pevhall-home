@@ -1,0 +1,154 @@
+
+#
+## Libraries
+snippet lib
+library ${1}
+use ${1}.${2}
+endsnippet
+
+# Standard Libraries
+snippet libs
+library IEEE;
+use IEEE.std_logic_1164.ALL;
+use IEEE.numeric_std.ALL;
+endsnippet
+
+# Xilinx Library
+snippet libx
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+endsnippet
+
+## Entity Declaration
+snippet ent
+entity ${1:`vim_snippets#Filename()`} is
+	generic (
+		${2}
+	);
+	port (
+		${3}
+	);
+end entity;
+endsnippet
+
+## Architecture
+snippet arc
+architecture ${1:behav} of ${2:`vim_snippets#Filename()`} is
+
+	${3}
+
+begin
+
+
+end architecture;
+endsnippet
+
+## Declarations
+# std_logic
+snippet ntrl
+constant ${1} : natural := ${2};
+endsnippet
+snippet st
+signal ${1} : std_logic;
+endsnippet
+# std_logic_vector
+snippet sv
+signal ${1} : std_logic_vector (${2} downto 0)${3: := (others => '0')};
+endsnippet
+# std_logic in
+snippet ist
+${1} : in std_logic;
+endsnippet
+# std_logic_vector in
+snippet isv
+${1} : in std_logic_vector (${2} downto 0);
+endsnippet
+# std_logic out
+snippet ost
+${1} : out std_logic;
+endsnippet
+# std_logic_vector out
+snippet osv
+${1} : out std_logic_vector (${2} downto 0);
+# unsigned
+endsnippet
+snippet un
+signal ${1} : unsigned (${2} downto 0);
+endsnippet
+## Process Statements
+# process
+snippet pr
+process (${1})
+begin
+	${2}
+end process;
+endsnippet
+# process with clock
+snippet prc
+process (${1:clk_i})
+begin
+	if rising_edge ($1) then if ${2:ce_i = '1'} then
+		${2}
+	end if; end if;
+end process;
+endsnippet
+# process all
+snippet pra
+process (${1:all})
+begin
+	${2}
+end process;
+endsnippet
+## Control Statements
+# if
+snippet if
+if ${1} then
+	${2}
+end if;
+endsnippet
+# if
+snippet ife
+if ${1} then
+	${2}
+else
+	${3}
+end if;
+endsnippet
+# else
+snippet el
+else
+	${1}
+endsnippet
+# if
+snippet eif
+elsif ${1} then
+	${2}
+endsnippet
+# case
+snippet ca
+case ${1} is
+	${2}
+end case;
+endsnippet
+# when
+snippet wh
+when ${1} =>
+	${2}
+endsnippet
+# for
+snippet for
+for ${1:i} in ${2} ${3:to} ${4} loop
+	${5}
+end loop;
+endsnippet
+# while
+snippet wh
+while ${1} loop
+	${2}
+end loop;
+endsnippet
+## Misc
+# others
+snippet oth
+(others => '${1:0}');
+endsnippet

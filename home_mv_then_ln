@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+
+
+set src $argv[1]
+#set dest (string sub --start=2 $src)
+#set dest (string join / (string split / $src)[4..-1])
+set dest (echo "home/"(string join / (string split / $src)[4..-1]))
+#set dest (echo "home "(string split / src)[4..-1] | string join /)
+
+ls $src
+or exit
+
+#set dest $argv[1]
+#set src ~/$dest
+#echo $dest=
+
+echo $dest > ln_mounts.txt
+
+mkdir -p (dirname $dest)
+
+mv $src $dest
+or exit
+ln -s (realpath --relative-to=(dirname $src) $dest) $src
+or exit
+
