@@ -4,7 +4,8 @@
 set src $argv[1]
 #set dest (string sub --start=2 $src)
 #set dest (string join / (string split / $src)[4..-1])
-set dest (echo "home/"(string join / (string split / $src)[4..-1]))
+set path (string join / (string split / $src)[4..-1])
+set dest (echo "home/"$path)
 #set dest (echo "home "(string split / src)[4..-1] | string join /)
 
 ls $src
@@ -14,7 +15,7 @@ or exit
 #set src ~/$dest
 #echo $dest=
 
-echo $dest > ln_mounts.txt
+echo $path >> ln_mounts.txt
 
 mkdir -p (dirname $dest)
 

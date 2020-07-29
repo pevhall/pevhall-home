@@ -1,1 +1,2 @@
-home/.config/nvim
+.config/nvim
+.config/fish

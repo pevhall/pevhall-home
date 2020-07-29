@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+while read -la line
+	set src (echo "home/"$line)
+	ls $src
+	or exit
+end < ln_mounts.txt
+
+while read -la line
+	set src (echo "home/"$line)
+	set lnk (echo $HOME"/"$line)
+	set pth (realpath --relative-to=(dirname $lnk) $src)
+	#echo $pth
+	rm -r $lnk
+	ln -s (realpath --relative-to=(dirname $lnk) $src) $lnk
+	#echo ln -s (echo realpath --relative-to=(echo dirname $lnk) $src) $lnk
+	#ln -s (realpath --relative-to=(dirname $lnk) $src) $lnk
+#	echo (echo ln -s $src $lnk)
+end < ln_mounts.txt
+
