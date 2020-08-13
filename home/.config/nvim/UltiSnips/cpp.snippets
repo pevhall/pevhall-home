@@ -105,7 +105,7 @@ snippet fnc "Basic c++ doxygen function template" b
 */
 ${1:ReturnType} ${2:FunctionName}(${3:param})
 {
-	${0:FunctionBody}
+	${0}
 }
 endsnippet
 # vim:ft=snippets:
@@ -183,16 +183,10 @@ endsnippet
 ## STL smart pointers
 # std::shared_ptr
 snippet msp
-std::shared_ptr<${1:T}> ${2} = std::make_shared<$1>(${3});
-endsnippet
-snippet amsp
 auto ${1} = std::make_shared<${2:T}>(${3});
 endsnippet
 # std::unique_ptr
 snippet mup
-std::unique_ptr<${1:T}> ${2} = std::make_unique<$1>(${3});
-endsnippet
-snippet amup
 auto ${1} = std::make_unique<${2:T}>(${3});
 endsnippet
 ##
@@ -282,8 +276,9 @@ ${7:void} ${1:`vim_snippets#Filename('$1', 'ClassName')`}::${2:memberFunction}($
 }
 endsnippet
 # namespace
+#namespace ${1:`vim_snippets#Filename('', 'my')`} {
 snippet ns
-namespace ${1:`vim_snippets#Filename('', 'my')`} {
+namespace ${1:`!p snip.rv = '.'.split(snip.fn)[0]`} {
 ${0}
 } /* namespace $1 */
 endsnippet
@@ -296,10 +291,10 @@ endsnippet
 ## Input/Output
 # std::cout
 snippet cout
-std::cout << ${1} << std::endl;
+std::cout << "${1}\n";
 endsnippet
 snippet coutdb
-std::cout <<__FILE__<<":"<<__LINE__<<": "${1:<< } << std::endl;
+std::cout <<__FILE__<<":"<<__LINE__<<": ${1}" << std::endl;
 endsnippet
 # std::cin
 snippet cin
@@ -377,4 +372,21 @@ auto ${1:name}(${2}) -> ${3:void}
 {
 	${0}
 };
+endsnippet
+snippet cx "complex" i
+std::complex<${VISUAL}$0>
+endsnippet
+
+snippet sp "Shared Pointer" i
+std::shared_ptr<${1:`!p
+snip.rv = snip.v.text.strip("*") or "klass"
+`}>
+endsnippet
+snippet up "Unique Pointer" i
+std::unique_ptr<${1:`!p
+snip.rv = snip.v.text.strip("*") or "klass"
+`}>
+endsnippet
+snippet vec "vector" i
+std::vector<${VISUAL}$0>
 endsnippet

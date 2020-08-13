@@ -1,16 +1,12 @@
 
-#
-## Libraries
-snippet lib
-library ${1}
-use ${1}.${2}
-endsnippet
 
 # Standard Libraries
 snippet libs
-library IEEE;
-use IEEE.std_logic_1164.ALL;
-use IEEE.numeric_std.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+use work.pkg_misc.all;
 endsnippet
 
 # Xilinx Library
@@ -33,7 +29,7 @@ endsnippet
 
 ## Architecture
 snippet arc
-architecture ${1:behav} of ${2:`vim_snippets#Filename()`} is
+architecture ${1:rtl} of ${2:`vim_snippets#Filename()`} is
 
 	${3}
 
@@ -45,50 +41,67 @@ endsnippet
 
 ## Declarations
 # std_logic
-snippet ntrl
+snippet cn
 constant ${1} : natural := ${2};
 endsnippet
-snippet st
-signal ${1} : std_logic;
+snippet gcn
+${1}_g : natural := ${2};
+endsnippet
+snippet sl
+signal ${1} : std_logic${2: := '0'};
 endsnippet
 # std_logic_vector
 snippet sv
 signal ${1} : std_logic_vector (${2} downto 0)${3: := (others => '0')};
 endsnippet
 # std_logic in
-snippet ist
-${1} : in std_logic;
+snippet isl
+${1}_i : in std_logic;
 endsnippet
 # std_logic_vector in
+snippet isu
+${1}_i : in  unsigned (${2} downto 0);
+endsnippet
+snippet osu
+${1}_o : out unsigned (${2} downto 0);
+endsnippet
 snippet isv
-${1} : in std_logic_vector (${2} downto 0);
+${1}_i : in  std_logic_vector (${2} downto 0);
 endsnippet
 # std_logic out
-snippet ost
-${1} : out std_logic;
+snippet osl
+${1}_o : out std_logic;
 endsnippet
 # std_logic_vector out
 snippet osv
-${1} : out std_logic_vector (${2} downto 0);
-# unsigned
+${1}_o : out std_logic_vector (${2} downto 0);
 endsnippet
-snippet un
-signal ${1} : unsigned (${2} downto 0);
+# unsigned
+snippet sun
+signal ${1} : unsigned (${2} downto 0)${3: := (others => '0')};
 endsnippet
 ## Process Statements
 # process
-snippet pr
+snippet pro
 process (${1})
 begin
 	${2}
 end process;
 endsnippet
 # process with clock
-snippet prc
+snippet proc
 process (${1:clk_i})
 begin
-	if rising_edge ($1) then if ${2:ce_i = '1'} then
-		${2}
+	if rising_edge($1) then 
+		${3}
+	end if;
+end process;
+endsnippet
+snippet proce
+process (${1:clk_i})
+begin
+	if rising_edge($1) then if ${2:ce_i} = '1' then
+		${3}
 	end if; end if;
 end process;
 endsnippet
@@ -130,11 +143,6 @@ case ${1} is
 	${2}
 end case;
 endsnippet
-# when
-snippet wh
-when ${1} =>
-	${2}
-endsnippet
 # for
 snippet for
 for ${1:i} in ${2} ${3:to} ${4} loop
@@ -150,5 +158,16 @@ endsnippet
 ## Misc
 # others
 snippet oth
-(others => '${1:0}');
+(others => ${1:'0'});
+endsnippet
+snippet ooth
+(others => (others => ${1:'0'}));
+endsnippet
+
+snippet amdb
+attribute MARK_DEBUG            : string;
+endsnippet
+
+snippet mdb
+attribute MARK_DEBUG of ${1} : signal is "TRUE";
 endsnippet

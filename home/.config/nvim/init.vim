@@ -19,6 +19,9 @@
         set statusline+=%t\                          "tail of file name ( f -> full lenght filename   )
         set statusline+=%h%m%r%w                     " status flags  
         set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type  
+try		
+	set statusline+=\ %{FugitiveStatusline()}        " add Git repo/ status
+endtry
         set statusline+=%=                           " right align remainder  
         set statusline+=0x%-8B                       " character value  
         set statusline+=%-14(%l,%c%V%)               " line, character  
@@ -31,17 +34,33 @@
 "  if exists('*minpac#init')
     call minpac#init()
 
-"    call minpac#add('junegunn/vim-easy-align')
-"    "" Start interactive EasyAlign in visual mode (e.g. vipga)
-"    xmap ga <Plug>(EasyAlign)
-"    "" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-"    nmap ga <Plug>(EasyAlign)
-    
 	call minpac#add('romainl/Apprentice')
     call minpac#add('pevhall/simple_highlighting')
 	call minpac#add('michaeljsmith/vim-indent-object')
-    call minpac#add('tpope/vim-fugitive')
+	if 1
+		call minpac#add('tpope/vim-fugitive')
+"		call minpac#add('shumphrey/fugitive-gitlab.vim')
+""		let g:fugitive_gitlab_domains = ['http://gitlab.solinnov.com.au:9999']
+"		let g:fugitive_gitlab_domains = ['git@192.168.2.1:9999']
+		
+	endif
     call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
+
+"	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat '.<f-args>}))
+	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat files*.txt'}))
+
+	if 1
+	"	ripgrep seraching
+		call minpac#add('dyng/ctrlsf.vim')
+		nmap     <C-F>f <Plug>CtrlSFPrompt
+		vmap     <C-F>f <Plug>CtrlSFVwordPath
+		vmap     <C-F>F <Plug>CtrlSFVwordExec
+		nmap     <C-F>n <Plug>CtrlSFCwordPath
+		nmap     <C-F>N <Plug>CtrlSFCCwordPath
+		nmap     <C-F>p <Plug>CtrlSFPwordPath
+		nnoremap <C-F>t :CtrlSFToggle<CR>
+	endif
+	
 
     "https://github.com/junegunn/fzf/wiki/Examples-(vim)#jump-to-tags
     command! -bar Tags if !empty(tagfiles()) | call fzf#run({
@@ -65,7 +84,7 @@
 "      call minpac#add('honza/vim-snippets')
 
       " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-	  let g:UltiSnipsListSnippets = "<leader><S-tab>"
+	  let g:UltiSnipsListSnippets = "<leader><c-m>"
       let g:UltiSnipsExpandTrigger="<tab>"
       let g:UltiSnipsJumpForwardTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
@@ -248,6 +267,10 @@ nnoremap <leader>c%  :let @*=expand("%:p")<CR>
 nnoremap <leader>c%t :let @*=expand("%:t")<CR>
 "copy directory
 nnoremap <leader>c%h :let @*=expand("%:p:h")<CR>
+
+"<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
+nnoremap <leader><c-w> m`:keepjumps normal! *``<cr>
+nnoremap <Leader>s m`:%s//<C-r><C-w>/g<cr>``
 
 "if has('nvim')
 "  if has("gui_running")
@@ -576,6 +599,7 @@ endfunction
 command! -nargs=+ Grep call Grep(<f-args>)
 " }}}
 
+
 "new splits below or right
 set splitbelow
 set splitright
@@ -584,13 +608,14 @@ set splitright
 " first, delete some text (using a command such as daw or dt in normal mode, or x in visual mode). Then, use visual mode to select some other text, and press Ctrl-S. The two pieces of text should then be swapped.
 :vnoremap <C-S> <Esc>`.``gvP``P
 
-""maps \s to swapping regesters unnamed, and a via x
-:nnoremap <Leader>s :let @x=@" \| let @"=@a \| let @a=@x<CR>
+"""maps \s to swapping regesters unnamed, and a via x
+":nnoremap <Leader>x :let @x=@" \| let @"=@a \| let @a=@x<CR>
 
 "modified buffer delete -- closes buffer but keeps splits unchaged
 command Bd bp | bd #
 
-
+"To search for visually selected text <https://vim.fandom.com/wiki/Search_for_visually_selected_text>
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "if !exists("s:autocommands_loaded") "guard
 augroup FILE_TYPES
