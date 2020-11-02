@@ -41,10 +41,13 @@ endsnippet
 
 ## Declarations
 # std_logic
+snippet cb
+constant ${1} : boolean := ${2};
+endsnippet
 snippet cn
 constant ${1} : natural := ${2};
 endsnippet
-snippet gcn
+snippet gn
 ${1}_g : natural := ${2};
 endsnippet
 snippet sl
@@ -52,33 +55,48 @@ signal ${1} : std_logic${2: := '0'};
 endsnippet
 # std_logic_vector
 snippet sv
-signal ${1} : std_logic_vector (${2} downto 0)${3: := (others => '0')};
+signal ${1} : std_logic_vector (${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 # std_logic in
 snippet isl
 ${1}_i : in std_logic;
 endsnippet
-# std_logic_vector in
-snippet isu
-${1}_i : in  unsigned (${2} downto 0);
-endsnippet
-snippet osu
-${1}_o : out unsigned (${2} downto 0);
-endsnippet
-snippet isv
-${1}_i : in  std_logic_vector (${2} downto 0);
-endsnippet
 # std_logic out
-snippet osl
+snippet ol
 ${1}_o : out std_logic;
 endsnippet
+# std_logic_vector in
+snippet is
+${1}_i : in  signed (${2}-1 downto 0);
+endsnippet
+snippet os
+${1}_o : out signed (${2}-1 downto 0);
+endsnippet
+snippet iu
+${1}_i : in  unsigned (${2}-1 downto 0);
+endsnippet
+snippet ou
+${1}_o : out unsigned (${2}-1 downto 0);
+endsnippet
+snippet iv
+${1}_i : in  std_logic_vector (${2}-1 downto 0);
+endsnippet
 # std_logic_vector out
-snippet osv
-${1}_o : out std_logic_vector (${2} downto 0);
+snippet ov
+${1}_o : out std_logic_vector (${2}-1 downto 0);
 endsnippet
 # unsigned
-snippet sun
-signal ${1} : unsigned (${2} downto 0)${3: := (others => '0')};
+snippet su
+signal ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
+endsnippet
+snippet vl
+variable ${1} : std_logic${2: := '0'};
+endsnippet
+snippet vu
+variable ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
+endsnippet
+snippet vn
+variable ${1} : natural${2: := 0};
 endsnippet
 ## Process Statements
 # process
@@ -116,7 +134,7 @@ endsnippet
 # if
 snippet if
 if ${1} then
-	${2}
+	${VISUAL}${2}
 end if;
 endsnippet
 # if
@@ -146,28 +164,40 @@ endsnippet
 # for
 snippet for
 for ${1:i} in ${2} ${3:to} ${4} loop
-	${5}
+	${VISUAL}${5}
 end loop;
 endsnippet
 # while
 snippet wh
 while ${1} loop
-	${2}
+	${VISUAL}${2}
 end loop;
 endsnippet
 ## Misc
 # others
 snippet oth
-(others => ${1:'0'});
+(others => ${1:'0'})
 endsnippet
-snippet ooth
-(others => (others => ${1:'0'}));
+
+snippet vinc
+${1} := $1 + ${2:1};
+endsnippet
+
+snippet sinc
+${1} <= $1 + ${2:1};
 endsnippet
 
 snippet amdb
-attribute MARK_DEBUG            : string;
+attribute MARK_DEBUG : string;
 endsnippet
 
 snippet mdb
 attribute MARK_DEBUG of ${1} : signal is "TRUE";
 endsnippet
+
+snippet aliascntr
+signal ${1}cntr_w_ovr : unsigned (${2} downto 0) := (others => '0');
+alias $1cntr_ovr is $1cntr_w_ovr ($2);
+alias $1cntr     is $1cntr_w_ovr ($2-1 downto 0);
+endsnippet
+

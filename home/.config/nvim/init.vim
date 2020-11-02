@@ -35,8 +35,13 @@ endtry
     call minpac#init()
 
 	call minpac#add('romainl/Apprentice')
-    call minpac#add('pevhall/simple_highlighting')
+	call minpac#add('dracula/vim')
+	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
+
+    call minpac#add('pevhall/simple_highlighting')
+	set termguicolors
+
 	if 1
 		call minpac#add('tpope/vim-fugitive')
 "		call minpac#add('shumphrey/fugitive-gitlab.vim')
@@ -44,7 +49,11 @@ endtry
 "		let g:fugitive_gitlab_domains = ['git@192.168.2.1:9999']
 		
 	endif
-    call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
+
+	if 1
+		call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
+		call minpac#add('junegunn/fzf.vim')
+	endif
 
 "	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat '.<f-args>}))
 	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat files*.txt'}))
@@ -269,8 +278,9 @@ nnoremap <leader>c%t :let @*=expand("%:t")<CR>
 nnoremap <leader>c%h :let @*=expand("%:p:h")<CR>
 
 "<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
-nnoremap <leader><c-w> m`:keepjumps normal! *``<cr>
-nnoremap <Leader>s m`:%s//<C-r><C-w>/g<cr>``
+nnoremap # m`:keepjumps normal! *``<cr>
+nnoremap <Leader>s m`:%s/<C-r>//<C-r><C-w>/g<cr>``
+nnoremap <Leader><a-s> :%s/<C-r>//<C-r><C-w>/g
 
 "if has('nvim')
 "  if has("gui_running")
@@ -458,7 +468,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-behave mswin
 "}}} 
 
 
