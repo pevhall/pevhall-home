@@ -5,7 +5,6 @@
 "Plug 'lervag/vimtex'
 "Plug 'tpope/vim-fugitive'
 "call plug#end()
-
 "http://vimcasts.org/episodes/minpac/
 "git clone https://github.com/k-takata/minpac.git \
 "    ~/.vim/pack/minpac/opt/minpac
@@ -312,12 +311,12 @@ command! Uncrustify  let s:save_cursor = getcurpos()
 "}}}
 
 "To use `ALT+{h,j,k,l}` to navigate windows and tabs from any mode: {{{
-    :tnoremap <C-A-h> <C-\><C-N>gT
-    :tnoremap <C-A-l> <C-\><C-N>gt
-    :inoremap <C-A-h> <C-\><C-N>gT
-    :inoremap <C-A-l> <C-\><C-N>gt
-    :nnoremap <C-A-h> gT
-    :nnoremap <C-A-l> gt
+    :tnoremap <C-A-p> <C-\><C-N>gT
+    :tnoremap <C-A-n> <C-\><C-N>gt
+    :inoremap <C-A-p> <C-\><C-N>gT
+    :inoremap <C-A-n> <C-\><C-N>gt
+    :nnoremap <C-A-p> gT
+    :nnoremap <C-A-n> gt
 
     :tnoremap <A-h> <C-\><C-N><C-w>h
     :tnoremap <A-j> <C-\><C-N><C-w>j
@@ -630,7 +629,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 augroup FILE_TYPES
 "    let s:autocommands_loaded = 1 "only run commands below once
     autocmd Filetype vhdl    call FT_vhdl()
-    autocmd Filetype verilog call FT_verilog()
+"    autocmd Filetype verilog call FT_verilog()
 augroup END
 "endif
 
@@ -698,12 +697,12 @@ function FT_vhdl()
 	endif
 endfunction
 
-function FT_verilog()
-  if !exists("g:one_off_verilog_loaded")
-    let g:one_off_verilog_loaded = 1
-    exe "command! Tg !".s:hdlUpdate."   .   "
-  endif
-endfunction
+"function FT_verilog()
+"  if !exists("g:one_off_verilog_loaded")
+"    let g:one_off_verilog_loaded = 1
+"    exe "command! Tg !".s:hdlUpdate."   .   "
+"  endif
+"endfunction
 "}}}
 
 "" Basic Functions {{{

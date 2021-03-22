@@ -1,0 +1,36 @@
+snippet #! "#!/usr/bin/env python3" b
+#!/usr/bin/env python
+$0
+endsnippet
+
+snippet implab "import pylab" b
+import numpy as np
+import pylab as plt
+endsnippet
+
+snippet ifmain "if main" b
+if __name__ == '__main__':
+	${1:${VISUAL:main()}}
+endsnippet
+
+snippet for "for loop" b
+for ${1:item} in ${2:iterable}:
+	${3:${VISUAL:pass}}
+endsnippet
+
+snippet fori "for idx range" b
+for ${1:idx} in range(len(${2:arr})):
+	${3:${VISUAL:pass}}
+endsnippet
+
+snippet fore "for idx range" b
+for ${1:idx}, ${2:item} in enumerate(${3:arr}):
+	${4:${VISUAL:pass}}
+endsnippet
+
+snippet if "if statment" b
+if ${1}:
+	${2:${VISUAL:pass}}
+endsnippet
+
+

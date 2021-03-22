@@ -47,6 +47,9 @@ endsnippet
 snippet cn
 constant ${1} : natural := ${2};
 endsnippet
+snippet gb
+${1}_g : boolean := ${2};
+endsnippet
 snippet gn
 ${1}_g : natural := ${2};
 endsnippet
@@ -57,8 +60,14 @@ endsnippet
 snippet sv
 signal ${1} : std_logic_vector (${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
+snippet ss
+signal ${1} : signed(${2}-1 downto 0)${3: := (others => '0')};
+endsnippet
+snippet su
+signal ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
+endsnippet
 # std_logic in
-snippet isl
+snippet il
 ${1}_i : in std_logic;
 endsnippet
 # std_logic out
@@ -77,6 +86,9 @@ ${1}_i : in  unsigned (${2}-1 downto 0);
 endsnippet
 snippet ou
 ${1}_o : out unsigned (${2}-1 downto 0);
+endsnippet
+snippet iov
+${1}_io : inout std_logic_vector (${2}-1 downto 0);
 endsnippet
 snippet iv
 ${1}_i : in  std_logic_vector (${2}-1 downto 0);
@@ -97,6 +109,9 @@ variable ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 snippet vn
 variable ${1} : natural${2: := 0};
+endsnippet
+snippet vb
+variable ${1}_v : boolean${2: := FALSE};
 endsnippet
 ## Process Statements
 # process
@@ -134,7 +149,7 @@ endsnippet
 # if
 snippet if
 if ${1} then
-	${VISUAL}${2}
+	${0:${VISUAL}}
 end if;
 endsnippet
 # if
@@ -164,19 +179,31 @@ endsnippet
 # for
 snippet for
 for ${1:i} in ${2} ${3:to} ${4} loop
-	${VISUAL}${5}
+	${0:${VISUAL}}
 end loop;
 endsnippet
 # while
 snippet wh
 while ${1} loop
-	${VISUAL}${2}
+	${0:${VISUAL}}
 end loop;
 endsnippet
 ## Misc
 # others
 snippet oth
 (others => ${1:'0'})
+endsnippet
+
+snippet gif
+g_${1} : if ${2} generate
+	${0:${VISUAL}}
+end generate;
+endsnippet
+
+snippet gloop
+g_${1} : for ${2:idx} in ${3} ${4:to} ${5} generate
+	${0:${VISUAL}}
+end generate;
 endsnippet
 
 snippet vinc
@@ -187,17 +214,30 @@ snippet sinc
 ${1} <= $1 + ${2:1};
 endsnippet
 
-snippet amdb
+snippet damdb
 attribute MARK_DEBUG : string;
 endsnippet
 
-snippet mdb
+snippet amdb
 attribute MARK_DEBUG of ${1} : signal is "TRUE";
 endsnippet
 
-snippet aliascntr
-signal ${1}cntr_w_ovr : unsigned (${2} downto 0) := (others => '0');
-alias $1cntr_ovr is $1cntr_w_ovr ($2);
-alias $1cntr     is $1cntr_w_ovr ($2-1 downto 0);
+snippet cntra
+signal ${1:cntr}_w_ovr : unsigned (${2} downto 0) := (others => '0');
+alias $1_ovr is $1_w_ovr ($2);
+alias $1     is $1_w_ovr ($2-1 downto 0);
 endsnippet
+
+snippet imgi
+	integer'image(${1:${VISUAL}})
+endsnippet
+
+snippet eq_imgb
+	"${1} = "&boolean'image($1)
+endsnippet
+snippet eq_imgi
+	"${1} = "&integer'image($1)
+endsnippet
+
+
 
