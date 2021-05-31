@@ -57,7 +57,7 @@ endtry
 "	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat '.<f-args>}))
 	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat files*.txt'}))
 
-	if 1
+	if 0
 	"	ripgrep seraching
 		call minpac#add('dyng/ctrlsf.vim')
 		nmap     <C-F>f <Plug>CtrlSFPrompt
@@ -263,6 +263,9 @@ if filereadable('/usr/bin/fish')
   set shell=/usr/bin/fish
 endif
 
+"set grepprg="cat files*.txt \| xargs rg --vimgrep"
+"set grepformat^=%f:%l:%c:%m
+
 " load script that insters a VHDL component from an file
 let s:srcFilePath = expand('<sfile>:p:h')
 let initVhdlPath = s:srcFilePath . '/instVhdl/instVHDL.vim'
@@ -311,12 +314,12 @@ command! Uncrustify  let s:save_cursor = getcurpos()
 "}}}
 
 "To use `ALT+{h,j,k,l}` to navigate windows and tabs from any mode: {{{
-    :tnoremap <C-A-p> <C-\><C-N>gT
-    :tnoremap <C-A-n> <C-\><C-N>gt
-    :inoremap <C-A-p> <C-\><C-N>gT
-    :inoremap <C-A-n> <C-\><C-N>gt
-    :nnoremap <C-A-p> gT
-    :nnoremap <C-A-n> gt
+    :tnoremap <A-p> <C-\><C-N>gT
+    :tnoremap <A-n> <C-\><C-N>gt
+    :inoremap <A-p> <C-\><C-N>gT
+    :inoremap <A-n> <C-\><C-N>gt
+    :nnoremap <A-p> gT
+    :nnoremap <A-n> gt
 
     :tnoremap <A-h> <C-\><C-N><C-w>h
     :tnoremap <A-j> <C-\><C-N><C-w>j
