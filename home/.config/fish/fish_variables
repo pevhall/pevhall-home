@@ -4,6 +4,7 @@ SETUVAR --export --path CMAKE_PREFIX_PATH:/opt/qt514
 SETUVAR --export EDITOR:nvim
 SETUVAR IPP_ROOT:/opt/intel/compilers_and_libraries_2017/linux/ipp/
 SETUVAR --export MAKEFLAGS:\x2dj8
+SETUVAR --export TERM:konsole\x2d256color
 SETUVAR __fish_classic_git_prompt_initialized:\x1d
 SETUVAR __fish_init_2_39_8:\x1d
 SETUVAR __fish_init_2_3_0:\x1d
@@ -38,4 +39,4 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_prompt_pwd_dir_length:0
-SETUVAR fish_user_paths:/data/git/utils/fzf/bin
+SETUVAR fish_user_paths:/home/phall/git/utils/bin/

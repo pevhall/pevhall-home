@@ -60,13 +60,13 @@ endtry
 	if 0
 	"	ripgrep seraching
 		call minpac#add('dyng/ctrlsf.vim')
-		nmap     <C-F>f <Plug>CtrlSFPrompt
-		vmap     <C-F>f <Plug>CtrlSFVwordPath
-		vmap     <C-F>F <Plug>CtrlSFVwordExec
-		nmap     <C-F>n <Plug>CtrlSFCwordPath
-		nmap     <C-F>N <Plug>CtrlSFCCwordPath
-		nmap     <C-F>p <Plug>CtrlSFPwordPath
-		nnoremap <C-F>t :CtrlSFToggle<CR>
+"		nmap     <C-A-F>f <Plug>CtrlSFPrompt
+"		vmap     <C-A-F>f <Plug>CtrlSFVwordPath
+"		vmap     <C-A-F>F <Plug>CtrlSFVwordExec
+"		nmap     <C-A-F>n <Plug>CtrlSFCwordPath
+"		nmap     <C-A-F>N <Plug>CtrlSFCCwordPath
+"		nmap     <C-A-F>p <Plug>CtrlSFPwordPath
+"		nnoremap <C-A-F>t :CtrlSFToggle<CR>
 	endif
 	
 
