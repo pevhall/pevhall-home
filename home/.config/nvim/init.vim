@@ -11,31 +11,16 @@
 "    ~/.config/nvim/pack/minpac/opt/minpac
 ""**************************** status bar shows buffer number and character value {{{
 "taken from: <http://stackoverflow.com/questions/5547943/display-number-of-current-buffer>
-" Status Line {  
-        set laststatus=2                             " always show statusbar  
-        set statusline=  
-        set statusline+=%-10.3n\                     " buffer number  
-        set statusline+=%t\                          "tail of file name ( f -> full lenght filename   )
-        set statusline+=%h%m%r%w                     " status flags  
-        set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type  
-try		
-	set statusline+=\ %{FugitiveStatusline()}        " add Git repo/ status
-endtry
-        set statusline+=%=                           " right align remainder  
-        set statusline+=0x%-8B                       " character value  
-        set statusline+=%-14(%l,%c%V%)               " line, character  
-        set statusline+=%<%P                         " file position  
-"}  
-""}}}
 
-"try
+
+try
   packadd minpac
 "  if exists('*minpac#init')
     call minpac#init()
 
 	call minpac#add('romainl/Apprentice')
-	call minpac#add('dracula/vim')
-	call minpac#add('morhetz/gruvbox')
+"	call minpac#add('dracula/vim')
+"	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
 
     call minpac#add('pevhall/simple_highlighting')
@@ -43,6 +28,7 @@ endtry
 
 	if 1
 		call minpac#add('tpope/vim-fugitive')
+		autocmd BufReadPost fugitive://* set bufhidden=delete "https://github.com/tpope/vim-fugitive/issues/81#issuecomment-1245830
 "		call minpac#add('shumphrey/fugitive-gitlab.vim')
 ""		let g:fugitive_gitlab_domains = ['http://gitlab.solinnov.com.au:9999']
 "		let g:fugitive_gitlab_domains = ['git@192.168.2.1:9999']
@@ -257,11 +243,31 @@ endtry
 "      \                                 'start=/^\s*procedure\>/ step=/\<begin\>/ end=/\<end procedure\>/ fold',
 "  endif
 "      \       'vhdl' : {'parentheses': ['start=/(/ end=/)/ fold',  'start=/^\s*if\>/ step=/\<else\>/ end=/\<end if\>/ fold',  'start=/^\s*process\>/ step=/\<begin\>/ end=/\<end process\>/ fold', 'start=/\<for\>/ end=/\<end loop\>/ fold']},
-"catch
-"endtry
+	let g:has_minpac = 1
+catch
+	let g:has_minpac = 0
+endtry
+
 if filereadable('/usr/bin/fish')
   set shell=/usr/bin/fish
 endif
+"
+" Status Line {  
+        set laststatus=2                             " always show statusbar  
+        set statusline=  
+        set statusline+=%-10.3n\                     " buffer number  
+        set statusline+=%t\                          "tail of file name ( f -> full lenght filename   )
+        set statusline+=%h%m%r%w                     " status flags  
+        set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type  
+if g:has_minpac		
+       set statusline+=\ %{FugitiveStatusline()}        " add Git repo/ status
+endif
+        set statusline+=%=                           " right align remainder  
+        set statusline+=0x%-8B                       " character value  
+        set statusline+=%-14(%l,%c%V%)               " line, character  
+        set statusline+=%<%P                         " file position  
+"}  
+""}}}
 
 "set grepprg="cat files*.txt \| xargs rg --vimgrep"
 "set grepformat^=%f:%l:%c:%m
@@ -518,7 +524,7 @@ function SetLocalTabSpace(numSpaces)
     exe 'setlocal softtabstop='.a:numSpaces  | " number of spaces to insert when tab is pressed
 endfunction
 
-"command -nargs=1 FixDocTabSpace call SetLocalTabSpace(<args>) | normal i VIM settings: ex: set shiftwidth=2 softtabstop=2 expandtab:<ESC>
+command -nargs=1 RSetLocalTabSpace call SetLocalTabSpace(<args>) | normal i VIM settings: ex: set shiftwidth=2 softtabstop=2 expandtab:<ESC>
 
 command -nargs=1 SetLocalTabSpace call SetLocalTabSpace(<args>)
 
