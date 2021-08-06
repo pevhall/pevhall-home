@@ -631,6 +631,17 @@ set splitright
 "modified buffer delete -- closes buffer but keeps splits unchaged
 command Bd bp | bd #
 
+"https://stackoverflow.com/questions/8450919/how-can-i-delete-all-hidden-buffers
+function! BuffersDeleteHidden()
+    redir => buffersoutput
+    buffers
+    redir END
+    let buflist = split(buffersoutput,"\n")
+    for item in filter(buflist,"v:val[5] == 'h'")
+            exec 'bdelete ' . item[:2]
+    endfor
+endfunction
+
 "To search for visually selected text <https://vim.fandom.com/wiki/Search_for_visually_selected_text>
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
