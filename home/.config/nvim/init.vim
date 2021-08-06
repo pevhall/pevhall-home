@@ -35,6 +35,13 @@ try
 		
 	endif
 
+	call minpac#add('vim-airline/vim-airline')
+	if 1
+		call minpac#add('airblade/vim-gitgutter')
+		nmap ]h <Plug>(GitGutterNextHunk)
+		nmap [h <Plug>(GitGutterPrevHunk)
+	endif
+
 	if 1
 		call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
 		call minpac#add('junegunn/fzf.vim')
@@ -253,6 +260,7 @@ if filereadable('/usr/bin/fish')
 endif
 "
 " Status Line {  
+if g:has_minpac == 0
         set laststatus=2                             " always show statusbar  
         set statusline=  
         set statusline+=%-10.3n\                     " buffer number  
@@ -266,6 +274,7 @@ endif
         set statusline+=0x%-8B                       " character value  
         set statusline+=%-14(%l,%c%V%)               " line, character  
         set statusline+=%<%P                         " file position  
+endif
 "}  
 ""}}}
 
@@ -624,6 +633,16 @@ set splitright
 
 " first, delete some text (using a command such as daw or dt in normal mode, or x in visual mode). Then, use visual mode to select some other text, and press Ctrl-S. The two pieces of text should then be swapped.
 :vnoremap <C-S> <Esc>`.``gvP``P
+
+if has('unix')
+	"https://unix.stackexchange.com/questions/43119/preserve-modified-time-stamp-after-edit
+	function! WritePreserveDate()
+		let mtime = system("stat -c %.Y ".shellescape(expand('%:p')))
+		write
+		call system("touch --date='@".mtime."' ".shellescape(expand('%:p')))
+		edit
+	endfunction
+endif
 
 """maps \s to swapping regesters unnamed, and a via x
 ":nnoremap <Leader>x :let @x=@" \| let @"=@a \| let @a=@x<CR>
