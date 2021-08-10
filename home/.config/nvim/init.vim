@@ -12,7 +12,6 @@
 ""**************************** status bar shows buffer number and character value {{{
 "taken from: <http://stackoverflow.com/questions/5547943/display-number-of-current-buffer>
 
-
 try
   packadd minpac
 "  if exists('*minpac#init')
@@ -35,7 +34,23 @@ try
 		
 	endif
 
-	call minpac#add('vim-airline/vim-airline')
+	"call minpac#add('vim-airline/vim-airline')
+	if 1
+		call minpac#add('itchyny/lightline.vim')
+		let g:lightline = {
+		  \ 'colorscheme': 'wombat',
+		  \ 'active': {
+		  \   'left': [ [ 'mode', 'paste' ],
+		  \             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
+		  \ },
+		  \ 'component_function': {
+		  \   'gitbranch': 'FugitiveHead'
+		  \ },
+		  \ 'component' : {
+			  \   'filename': '[%n] %t'
+		  \ }
+	  \ }
+	endif
 	if 1
 		call minpac#add('airblade/vim-gitgutter')
 		nmap ]h <Plug>(GitGutterNextHunk)
@@ -114,7 +129,7 @@ try
       " Use tab for trigger completion with characters ahead and navigate.
       " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
       " other plugin before putting this into your config.
-"      inoremap <silent><expr> <TAB>
+"irlin      inoremap <silent><expr> <TAB>
 "            \ pumvisible() ? "\<C-n>" :
 "            \ <SID>check_back_space() ? "\<TAB>" :
 "            \ coc#refresh()
