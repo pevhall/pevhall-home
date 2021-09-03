@@ -58,13 +58,13 @@ signal ${1} : std_logic${2: := '0'};
 endsnippet
 # std_logic_vector
 snippet sv
-signal ${1} : std_logic_vector (${2}-1 downto 0)${3: := (others => '0')};
+signal ${1} : std_logic_vector(${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 snippet ss
 signal ${1} : signed(${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 snippet su
-signal ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
+signal ${1} : unsigned(${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 # std_logic in
 snippet il
@@ -76,35 +76,35 @@ ${1}_o : out std_logic;
 endsnippet
 # std_logic_vector in
 snippet is
-${1}_i : in  signed (${2}-1 downto 0);
+${1}_i : in  signed(${2}-1 downto 0);
 endsnippet
 snippet os
-${1}_o : out signed (${2}-1 downto 0);
+${1}_o : out signed(${2}-1 downto 0);
 endsnippet
 snippet iu
-${1}_i : in  unsigned (${2}-1 downto 0);
+${1}_i : in  unsigned(${2}-1 downto 0);
 endsnippet
 snippet ou
-${1}_o : out unsigned (${2}-1 downto 0);
+${1}_o : out unsigned(${2}-1 downto 0);
 endsnippet
 snippet iov
-${1}_io : inout std_logic_vector (${2}-1 downto 0);
+${1}_io : inout std_logic_vector(${2}-1 downto 0);
 endsnippet
 snippet iv
-${1}_i : in  std_logic_vector (${2}-1 downto 0);
+${1}_i : in  std_logic_vector(${2}-1 downto 0);
 endsnippet
 # std_logic_vector out
 snippet ov
-${1}_o : out std_logic_vector (${2}-1 downto 0);
+${1}_o : out std_logic_vector(${2}-1 downto 0);
 endsnippet
 snippet vl
 variable ${1} : std_logic${2: := '0'};
 endsnippet
 snippet vv
-variable ${1} : std_logic_vector (${2}-1 downto 0);
+variable ${1} : std_logic_vector(${2}-1 downto 0);
 endsnippet
 snippet vu
-variable ${1} : unsigned (${2}-1 downto 0)${3: := (others => '0')};
+variable ${1} : unsigned(${2}-1 downto 0)${3: := (others => '0')};
 endsnippet
 snippet vi
 variable ${1}_v : integer${2: := 0};
@@ -224,10 +224,10 @@ snippet amdb
 attribute MARK_DEBUG of ${1} : signal is "TRUE";
 endsnippet
 
-snippet cntra
-signal ${1:cntr}_w_ovr : unsigned (${2} downto 0) := (others => '0');
-alias $1_ovr is $1_w_ovr ($2);
-alias $1     is $1_w_ovr ($2-1 downto 0);
+snippet acntr
+signal ${1:cntr}_w_ovr : unsigned(${2} downto 0) := (others => '0');
+alias $1_ovr is $1_w_ovr($2);
+alias $1     is $1_w_ovr($2-1 downto 0);
 endsnippet
 
 snippet imgi

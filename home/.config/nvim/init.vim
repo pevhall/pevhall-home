@@ -22,9 +22,15 @@ try
 "	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
 
-    call minpac#add('pevhall/simple_highlighting')
+    if 1
+        call minpac#add('pevhall/simple_highlighting')
+        nmap <Leader>m <Plug>HighlightWordUnderCursor
+        vmap <Leader>m <Plug>HighlightWordUnderCursor
+    endif
+
 	set termguicolors
 
+    "nvim only plugin https://github.com/rmagatti/alternate-toggler
 	if 1
 		call minpac#add('tpope/vim-fugitive')
 		autocmd BufReadPost fugitive://* set bufhidden=delete "https://github.com/tpope/vim-fugitive/issues/81#issuecomment-1245830
@@ -55,6 +61,7 @@ try
 		call minpac#add('airblade/vim-gitgutter')
 		nmap ]h <Plug>(GitGutterNextHunk)
 		nmap [h <Plug>(GitGutterPrevHunk)
+        set updatetime=200 "ms (4000 is default)
 	endif
 
 	if 1
@@ -245,6 +252,12 @@ try
 "    let g:syntastic_cpp_config_file = './.syntastic_cpp_config'
 "    let g_syntastic_deubg = 1
 
+    
+    if 1
+        call minpac#add('nathanaelkane/vim-indent-guides')
+        let g:indent_guides_enable_on_vim_startup = 1
+    endif
+
     call minpac#add('luochen1990/rainbow')
     let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
         let g:rainbow_conf = {
@@ -303,17 +316,19 @@ if filereadable(initVhdlPath)
   exec 'source'initVhdlPath
 endif
 "copy abs file path
-nnoremap <leader>c%  :let @*=expand("%:p")<CR> 
+nnoremap <leader>c%  :let @+=expand("%:p")<CR> 
 "copy file name
-nnoremap <leader>c%t :let @*=expand("%:t")<CR>
+nnoremap <leader>c%t :let @+=expand("%:t")<CR>
 "copy directory
-nnoremap <leader>c%h :let @*=expand("%:p:h")<CR>
+nnoremap <leader>c%h :let @+=expand("%:p:h")<CR>
 
 "<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
 nnoremap # m`:keepjumps normal! *``<cr>
 nnoremap <Leader>s m`:%s/<C-r>//<C-r><C-w>/g<cr>``
 nnoremap <Leader><a-s> :%s/<C-r>//<C-r><C-w>/g
 
+"find whole words
+nnoremap <leader>/ /\<\><left><left>
 "if has('nvim')
 "  if has("gui_running")
   "fix up middle mouse selection issue on neovim-qt
@@ -539,7 +554,7 @@ set tabstop=4     " width of a tab character
 
 set shiftwidth=4  " amount of white space from '>' and '<' keys
 set softtabstop=4 " number of spaces to insert when tab is pressed
-set noexpandtab
+set expandtab
 set smarttab
 
 function SetLocalTabSpace(numSpaces)
@@ -666,7 +681,7 @@ endif
 command Bd bp | bd #
 
 "https://stackoverflow.com/questions/8450919/how-can-i-delete-all-hidden-buffers
-function! BuffersDeleteHidden()
+function! BuffersDeleteHiddenNoRedorder()
     redir => buffersoutput
     buffers
     redir END
@@ -674,6 +689,13 @@ function! BuffersDeleteHidden()
     for item in filter(buflist,"v:val[5] == 'h'")
             exec 'bdelete ' . item[:2]
     endfor
+endfunction
+
+function BuffersDeleteHidden()
+    exec argdel *
+    exec bufdo argadd %
+    exec %bd
+    exec argdo e
 endfunction
 
 "To search for visually selected text <https://vim.fandom.com/wiki/Search_for_visually_selected_text>
