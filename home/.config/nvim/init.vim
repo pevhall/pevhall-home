@@ -9,10 +9,9 @@
 "git clone https://github.com/k-takata/minpac.git \
 "    ~/.vim/pack/minpac/opt/minpac
 "    ~/.config/nvim/pack/minpac/opt/minpac
-""**************************** status bar shows buffer number and character value {{{
-"taken from: <http://stackoverflow.com/questions/5547943/display-number-of-current-buffer>
-
+""**************************** pulgins: {{{
 try
+
   packadd minpac
 "  if exists('*minpac#init')
     call minpac#init()
@@ -64,6 +63,13 @@ try
         set updatetime=200 "ms (4000 is default)
 	endif
 
+    if 1
+        call minpac#add('preservim/tagbar')
+        let g:tagbar_position = 'topleft vertical'
+        nnoremap <silent> <leader><C-t> :TagbarToggle<CR>
+        nnoremap <silent> <leader><M-t> :TagbarOpen fj<CR>
+    endif
+    
 	if 1
 		call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
 		call minpac#add('junegunn/fzf.vim')
