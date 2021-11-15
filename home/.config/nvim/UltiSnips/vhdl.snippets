@@ -48,10 +48,13 @@ snippet cn
 constant ${1} : natural := ${2};
 endsnippet
 snippet gb
-${1}_g : boolean := ${2};
+${1}_g : boolean${2: := };
+endsnippet
+snippet gi
+${1}_g : integer${2: := };
 endsnippet
 snippet gn
-${1}_g : natural := ${2};
+${1}_g : natural${2: := };
 endsnippet
 snippet sl
 signal ${1} : std_logic${2: := '0'};

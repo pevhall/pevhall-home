@@ -43,18 +43,22 @@ try
 	if 1
 		call minpac#add('itchyny/lightline.vim')
 		let g:lightline = {
-		  \ 'colorscheme': 'wombat',
-		  \ 'active': {
-		  \   'left': [ [ 'mode', 'paste' ],
-		  \             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
-		  \ },
-		  \ 'component_function': {
-		  \   'gitbranch': 'FugitiveHead'
-		  \ },
-		  \ 'component' : {
-			  \   'filename': '[%n] %t'
-		  \ }
-	  \ }
+		    \ 'colorscheme': 'wombat',
+		    \ 'active': {
+		    \   'left': [ [ 'mode', 'paste' ],
+		    \             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
+		    \ },
+		    \ 'component_function': {
+		    \   'gitbranch': 'FugitiveHead'
+		    \ },
+		    \ 'component' : {
+		    \   'filename': '[%n] %t'
+		    \ },
+            \ 'inactive': {
+            \   'left': [ [ 'filename', 'modified' ] ],
+            \   'right': [ [ 'lineinfo' ], [ 'percent' ] ]
+            \ }
+	    \ }
 	endif
 	if 1
 		call minpac#add('airblade/vim-gitgutter')
