@@ -333,7 +333,8 @@ nnoremap <leader>c%t :let @+=expand("%:t")<CR>
 nnoremap <leader>c%h :let @+=expand("%:p:h")<CR>
 
 "<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
-nnoremap # m`:keepjumps normal! *``<cr>
+"nnoremap # m`:keepjumps normal! *``<cr>
+noremap # :let @/ = "\\<<C-r><C-w>\\>"<cr>:set hlsearch<cr>
 "replace all 
 nnoremap <Leader>s m`:%s/<C-r>//<C-r><C-w>/g<cr>``
 "write the command to replace all but leave open for changes (useful to keep history etc)
