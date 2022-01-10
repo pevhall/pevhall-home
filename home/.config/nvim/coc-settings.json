@@ -24,17 +24,27 @@
         }
       }
     },
-    "hdlChecker": {
-      "command": "hdl_checker",
-      "args": [
-        "--lsp"
-      ],
+    "ghdl-ls": {
+      "command": "ghdl-ls",
+//      "args": [
+//        "--lsp"
+//      ],
       "filetypes": [
-        "vhdl",
-        "verilog"
-//        "systemverilog"
+        "vhdl"
       ]
     }
+
+//    "hdlChecker": {
+//      "command": "hdl_checker",
+//      "args": [
+//        "--lsp"
+//      ],
+//      "filetypes": [
+//        "vhdl",
+//        "verilog"
+////        "systemverilog"
+//      ]
+//    }
   },
 
   "python.linting.pylintEnabled": false, 

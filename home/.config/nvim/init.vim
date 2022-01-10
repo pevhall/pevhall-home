@@ -1,4 +1,5 @@
 " vim: set foldmethod=marker :
+let mapleader = " "
 
 ""Plugins:
 "call plug#begin('~/.vim/plugged')
@@ -10,7 +11,9 @@
 "    ~/.vim/pack/minpac/opt/minpac
 "    ~/.config/nvim/pack/minpac/opt/minpac
 ""**************************** pulgins: {{{
-try
+
+if 1
+"try
 
   packadd minpac
 "  if exists('*minpac#init')
@@ -117,18 +120,11 @@ try
 "      call minpac#add('honza/vim-snippets')
 
       " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-	  let g:UltiSnipsListSnippets = "<leader><c-m>"
+	  let g:UltiSnipsListSnippets = "<C-\\><tab>" "keybinbding doesn't work for some reason 
       let g:UltiSnipsExpandTrigger="<tab>"
       let g:UltiSnipsJumpForwardTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
-"	  let g:UltiSnipsListSnippets = "<leader><c-m>"
-"      let g:UltiSnipsExpandTrigger="<tab>"
-"      let g:UltiSnipsJumpForwardTrigger="<c-m>"
-"      let g:UltiSnipsJumpBackwardTrigger="<C-A-m>"
-
-      " If you want :UltiSnipsEdit to split your window.
-"      let g:UltiSnipsEditSplit="vertical"
     endif
 
     if 1 && has('nvim') " Add COC {{{
@@ -142,6 +138,9 @@ try
       " Don't pass messages to |ins-completion-menu|.
       set shortmess+=c
       
+"      if has("nvim-0.5.0") || has("patch-8.1.1564")
+"        set signcolumn=number
+"      endif
 
       " Use tab for trigger completion with characters ahead and navigate.
       " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -289,9 +288,11 @@ try
 "  endif
 "      \       'vhdl' : {'parentheses': ['start=/(/ end=/)/ fold',  'start=/^\s*if\>/ step=/\<else\>/ end=/\<end if\>/ fold',  'start=/^\s*process\>/ step=/\<begin\>/ end=/\<end process\>/ fold', 'start=/\<for\>/ end=/\<end loop\>/ fold']},
 	let g:has_minpac = 1
-catch
-	let g:has_minpac = 0
-endtry
+"catch
+else
+"	let g:has_minpac = 0
+"endtry
+endif
 
 if filereadable('/usr/bin/fish')
   set shell=/usr/bin/fish
@@ -325,6 +326,7 @@ let initVhdlPath = s:srcFilePath . '/instVhdl/instVHDL.vim'
 if filereadable(initVhdlPath)
   exec 'source'initVhdlPath
 endif
+
 "copy abs file path
 nnoremap <leader>c%  :let @+=expand("%:p")<CR> 
 "copy file name
