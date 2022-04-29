@@ -328,11 +328,11 @@ if filereadable(initVhdlPath)
 endif
 
 "copy abs file path
-nnoremap <leader>c%  :let @+=expand("%:p")<CR> 
+nnoremap <leader>%  :let @+=expand("%:p")<CR> 
 "copy file name
-nnoremap <leader>c%t :let @+=expand("%:t")<CR>
+nnoremap <leader>%t :let @+=expand("%:t")<CR>
 "copy directory
-nnoremap <leader>c%h :let @+=expand("%:p:h")<CR>
+nnoremap <leader>%h :let @+=expand("%:p:h")<CR>
 
 "<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
 "nnoremap # m`:keepjumps normal! *``<cr>
@@ -346,6 +346,10 @@ nnoremap <Leader><a-s> :%s/<C-r>//<C-r><C-w>/g
 nnoremap <leader>/ /\<\><left><left>
 " swap word under cursor with word at mark x
 noremap <leader>x m``xyiw``viwp`xviwp``
+
+
+" Quickly select the text that was just pasted. 
+noremap gV `[v`]
 
 "navergate quick fix while in file (note works with a count)
 nmap ]q :cnext<CR>
@@ -685,6 +689,7 @@ augroup END
 
 autocmd BufRead,BufNewFile SConstruct set filetype=python "use python syntax for scons
 
+"unmap Y
 
 ""*******************************o**** VHDL: specific funciton {{{
 "" <http://0x7.ch/vim/vhdl/>    <http://0x7.ch/vim/vhdl/vimrc>

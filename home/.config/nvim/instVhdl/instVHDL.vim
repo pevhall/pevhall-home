@@ -15,7 +15,7 @@ function! InstVHDL(fileName)
   execute 'w'
 
   let pathToInstatiationScript = s:srcFilePath . '/instVHDL.py'
-  let commandLineInterfaceCommand = 'python ' . '"' . pathToInstatiationScript .'" "' .instFileName . '" "'.currBufferFileName .'" ' . currLineNumber
+  let commandLineInterfaceCommand = 'python3 ' . '"' . pathToInstatiationScript .'" "' .instFileName . '" "'.currBufferFileName .'" ' . currLineNumber
   let systemOut = system(commandLineInterfaceCommand)
 
   execute 'e'

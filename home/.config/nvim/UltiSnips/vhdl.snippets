@@ -196,7 +196,7 @@ endsnippet
 ## Misc
 # others
 snippet oth
-(others => ${1:'0'})
+(others => ${1:${VISUAL:'0'}})
 endsnippet
 
 snippet gif
@@ -236,12 +236,18 @@ endsnippet
 snippet imgi
 	integer'image(${1:${VISUAL}})
 endsnippet
+snippet imgr
+	real'image(${1:${VISUAL}})
+endsnippet
 
 snippet eq_imgb
 	"${1} = "&boolean'image($1)
 endsnippet
 snippet eq_imgi
 	"${1} = "&integer'image($1)
+endsnippet
+snippet rp_i
+	report "${1} = "&integer'image($1);
 endsnippet
 
 
