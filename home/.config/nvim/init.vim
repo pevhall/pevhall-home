@@ -55,7 +55,7 @@ if 1
 		    \   'gitbranch': 'FugitiveHead'
 		    \ },
 		    \ 'component' : {
-		    \   'filename': '[%n] %t'
+		    \   'filename': '%n^ %t'
 		    \ },
             \ 'inactive': {
             \   'left': [ [ 'filename', 'modified' ] ],
