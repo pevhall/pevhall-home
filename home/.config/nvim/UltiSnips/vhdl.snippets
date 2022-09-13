@@ -234,21 +234,45 @@ alias $1     is $1_w_ovr($2-1 downto 0);
 endsnippet
 
 snippet imgi
-	integer'image(${1:${VISUAL}})
+integer'image(${1:${VISUAL}})
 endsnippet
 snippet imgr
-	real'image(${1:${VISUAL}})
+real'image(${1:${VISUAL}})
 endsnippet
 
 snippet eq_imgb
-	"${1} = "&boolean'image($1)
+"${1:${VISUAL}} = "&boolean'image($1)
 endsnippet
 snippet eq_imgi
-	"${1} = "&integer'image($1)
+"${1:${VISUAL}} = "&integer'image($1)
 endsnippet
 snippet rp_i
-report "${1} = "&integer'image($1);
+report "${1:${VISUAL}} = "&integer'image($1);
+endsnippet
+snippet rp_l
+report "${1:${VISUAL}} = "&std_logic'image($1);
 endsnippet
 
+snippet rp_b
+report "${1:${VISUAL}} = "&boolean'image($1);
+endsnippet
 
+snippet pkgb
+package ${1:`vim_snippets#Filename()`} is
 
+  function ${2} return ${3} ;
+
+end package;
+
+package body $1 is
+
+  function $2 return $3 is
+  begin
+  end function;
+
+end package body;
+endsnippet
+
+snippet tarr
+type arr_$1 is array(natural range <>) of ${1};
+endsnippet
