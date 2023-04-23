@@ -121,7 +121,7 @@ endsnippet
 ## Process Statements
 # process
 snippet pro
-process (${1})
+process (${1:all})
 begin
 	${2}
 end process;
@@ -141,13 +141,6 @@ begin
 	if rising_edge($1) then if ${2:ce_i} = '1' then
 		${3}
 	end if; end if;
-end process;
-endsnippet
-# process all
-snippet pra
-process (${1:all})
-begin
-	${2}
 end process;
 endsnippet
 ## Control Statements

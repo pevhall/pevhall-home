@@ -23,6 +23,8 @@ if 1
 "	call minpac#add('dracula/vim')
 "	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
+"	call minpac#add('chrisbra/vim-diff-enhanced')
+	call minpac#add('whiteinge/diffconflicts')
 
     if 1
         call minpac#add('pevhall/simple_highlighting')
@@ -76,6 +78,11 @@ if 1
         nnoremap <silent> <leader><C-t> :TagbarToggle<CR>
         nnoremap <silent> <leader><M-t> :TagbarOpen fj<CR>
     endif
+
+" let g:loaded_nvimgdb = 1  (to disable)
+	if 1
+		call minpac#add('sakhnik/nvim-gdb', { 'do': ':!./install.sh' })
+	endif
     
 	if 1
 		call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
@@ -333,6 +340,8 @@ nnoremap <leader>%  :let @+=expand("%:p")<CR>
 nnoremap <leader>%t :let @+=expand("%:t")<CR>
 "copy directory
 nnoremap <leader>%h :let @+=expand("%:p:h")<CR>
+"copy abs file path and line number
+nnoremap <leader>%: :let @+ = expand("%:p") . ":" . line(".")<CR>
 
 "<https://stackoverflow.com/questions/4256697/vim-search-and-highlight-but-do-not-jump>
 "nnoremap # m`:keepjumps normal! *``<cr>
@@ -502,36 +511,36 @@ endif
 "}}} 
 
 
-""" diffexpr {{{
- function MyDiff()
-   let opt = '-a --binary '
-   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-   let arg1 = v:fname_in
-   if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-   let arg2 = v:fname_new
-   if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-   let arg3 = v:fname_out
-   if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-   if $VIMRUNTIME =~ ' '
-     if &sh =~ '\<cmd'
-       if empty(&shellxquote)
-         let l:shxq_sav = ''
-         set shellxquote&
-       endif
-       let cmd = '"' . $VIMRUNTIME . '\diff"'
-     else
-       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-     endif
-   else
-     let cmd = $VIMRUNTIME . '\diff'
-   endif
-   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-   if exists('l:shxq_sav')
-     let &shellxquote=l:shxq_sav
-   endif
- endfunction
-" }}}
+"""" diffexpr {{{
+" function MyDiff()
+"   let opt = '-a --binary '
+"   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+"   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+"   let arg1 = v:fname_in
+"   if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+"   let arg2 = v:fname_new
+"   if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+"   let arg3 = v:fname_out
+"   if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+"   if $VIMRUNTIME =~ ' '
+"     if &sh =~ '\<cmd'
+"       if empty(&shellxquote)
+"         let l:shxq_sav = ''
+"         set shellxquote&
+"       endif
+"       let cmd = '"' . $VIMRUNTIME . '\diff"'
+"     else
+"       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+"     endif
+"   else
+"     let cmd = $VIMRUNTIME . '\diff'
+"   endif
+"   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+"   if exists('l:shxq_sav')
+"     let &shellxquote=l:shxq_sav
+"   endif
+" endfunction
+"" }}}
 
 " TABS and spascing: {{{
 set tabstop=4     " width of a tab character
