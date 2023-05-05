@@ -72,7 +72,7 @@ if 1
         set updatetime=200 "ms (4000 is default)
 	endif
 
-    if 1
+    if 0
         call minpac#add('preservim/tagbar')
         let g:tagbar_position = 'topleft vertical'
         nnoremap <silent> <leader><C-t> :TagbarToggle<CR>
@@ -87,10 +87,21 @@ if 1
 	if 1
 		call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } } )
 		call minpac#add('junegunn/fzf.vim')
+        command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat files*.txt'}))
 	endif
 
-"	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat '.<f-args>}))
-	command FzfFileTxtList call fzf#run(fzf#wrap({'source':'cat files*.txt'}))
+    if 1
+		call minpac#add('nvim-lua/plenary.nvim')
+		call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+		call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
+
+        " Using Lua functions
+        nnoremap <leader>ff <cmd>Telescope find_files<cr>
+        nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+        nnoremap <leader>fb <cmd>Telescope buffers<cr>
+        nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+    endif
+
 
 	if 0
 	"	ripgrep seraching
@@ -242,13 +253,24 @@ if 1
       nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
       " Resume latest coc list.
       nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+    call minpac#add('fannheyward/telescope-coc.nvim')
+
+    lua << EOF
+require("telescope").setup({
+  extensions = {
+    coc = {
+        theme = 'ivy',
+        prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+    }
+  },
+})
+require('telescope').load_extension('coc')
+EOF
+
     endif "}}}
 "    call minpac#add('iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'})
 "    let g:mkdp_auto_start = 1
-
-    call minpac#add('JamshedVesuna/vim-markdown-preview')
-    " I also installed: markdown and xdotool with sudo apt
-    
 
 "   call minpac#add('suoto/vim-hdl')
 
