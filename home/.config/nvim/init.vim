@@ -34,8 +34,6 @@ if 1
         vmap <Leader>m <Plug>HighlightWordUnderCursor
     endif
 
-	set termguicolors
-
     "nvim only plugin https://github.com/rmagatti/alternate-toggler
 	if 1
 		call minpac#add('tpope/vim-fugitive')
@@ -371,6 +369,8 @@ endif
 endif
 "}  
 ""}}}
+
+let g:python3_host_prog='/bin/python3'
 
 "set grepprg="cat files*.txt \| xargs rg --vimgrep"
 "set grepformat^=%f:%l:%c:%m
