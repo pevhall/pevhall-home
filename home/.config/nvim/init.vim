@@ -19,7 +19,9 @@ if 1
 "  if exists('*minpac#init')
     call minpac#init()
 
-	call minpac#add('romainl/Apprentice')
+"   call minpac#add('romainl/Apprentice')
+    call minpac#add('marko-cerovac/material.nvim')
+    let  g:material_style = "oceanic"
 "	call minpac#add('dracula/vim')
 "	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
@@ -66,7 +68,7 @@ if 1
 	    \ }
 	endif
 	if 1
-		call minpac#add('airblade/vim-gitgutter')
+        call minpac#add('airblade/vim-gitgutter')
 		nmap ]h <Plug>(GitGutterNextHunk)
 		nmap [h <Plug>(GitGutterPrevHunk)
         set updatetime=200 "ms (4000 is default)
@@ -100,6 +102,12 @@ if 1
         nnoremap <leader>fg <cmd>Telescope live_grep<cr>
         nnoremap <leader>fb <cmd>Telescope buffers<cr>
         nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+        "
+"		call minpac#add("nvim-telescope/telescope-live-grep-args.nvim")
+"        lua <<EOF
+"        require("telescope").load_extension("live_grep_args")
+"EOF
+"        nnoremap <leader>fg :lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>
     endif
 
 
@@ -610,7 +618,7 @@ endif
 " }}}
 
 try "apply apprentice colorscheme if we have it
-  colorscheme apprentice
+  colorscheme material
 catch
   colorscheme torte "default inbuilt one
 endtry
