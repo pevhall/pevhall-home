@@ -93,8 +93,26 @@ if 1
 	endif
 
     if 1
-		call minpac#add('nvim-lua/plenary.nvim')
 		call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+lua << EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = {
+        'python',
+        'c',
+        'cpp',
+        'vim',
+    },
+    auto_install = true,
+    highlight = {
+      enable = true,
+--      additional_vim_regex_highlighting = false,
+    },
+  }
+EOF
+    endif
+
+    if 1
+		call minpac#add('nvim-lua/plenary.nvim')
 		call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
 
         " Using Lua functions
@@ -327,7 +345,7 @@ EOF
 	let g:has_minpac = 1
 "catch
 else
-"	let g:has_minpac = 0
+	let g:has_minpac = 0
 "endtry
 endif
 
