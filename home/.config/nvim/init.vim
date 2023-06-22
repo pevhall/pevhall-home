@@ -92,6 +92,7 @@ if 1
 
     if 1
 		call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+
 lua << EOF
   require'nvim-treesitter.configs'.setup {
     ensure_installed = {
@@ -103,7 +104,7 @@ lua << EOF
     auto_install = true,
     highlight = {
       enable = true,
---      additional_vim_regex_highlighting = false,
+     -- additional_vim_regex_highlighting = true, 
     },
   }
 EOF
@@ -209,6 +210,21 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+EOF
+    endif
+    if 1
+        call minpac#add('HiPhish/nvim-ts-rainbow2')
+lua <<EOF
+require('nvim-treesitter.configs').setup({
+ rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  },
+})
 EOF
     endif
 
