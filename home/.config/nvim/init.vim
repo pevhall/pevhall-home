@@ -20,8 +20,31 @@ if 1
     call minpac#init()
 
 "   call minpac#add('romainl/Apprentice')
-    call minpac#add('marko-cerovac/material.nvim')
-    let  g:material_style = "oceanic"
+    if 1
+        call minpac#add('marko-cerovac/material.nvim')
+"        let  g:material_style = "oceanic"
+lua << END
+vim.g.material_style = "oceanic"
+require('material').setup({
+    contrast = {
+        terminal = false, -- Enable contrast for the built-in terminal
+        sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+        floating_windows = false, -- Enable contrast for floating windows
+        cursor_line = false, -- Enable darker background for the cursor line
+        non_current_windows = true, -- Enable contrasted background for non-current windows
+        filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+    },
+    lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+})
+END
+        au ColorScheme * hi! link CocMenuSel PmenuSel
+        au ColorScheme * hi! link CocPumMenu Pmenu
+        au ColorScheme * hi! link CocPumVirtualText Comment
+    endif
+
+    call minpac#add('EdenEast/nightfox.nvim')
+"    call minpac#add('sainnhe/gruvbox-material')
+"    call minpac#add('sainnhe/everforest')
 "	call minpac#add('dracula/vim')
 "	call minpac#add('morhetz/gruvbox')
 	call minpac#add('michaeljsmith/vim-indent-object')
@@ -45,7 +68,14 @@ if 1
 	endif
 
 	"call minpac#add('vim-airline/vim-airline')
-	if 1
+    if 1
+        call minpac#add('nvim-lualine/lualine.nvim')
+        call minpac#add('nvim-tree/nvim-web-devicons')
+lua << END
+require('lualine').setup()
+END
+    endif
+	if 0
 		call minpac#add('itchyny/lightline.vim')
 		let g:lightline = {
 		    \ 'colorscheme': 'wombat',
@@ -104,7 +134,7 @@ lua << EOF
     auto_install = true,
     highlight = {
       enable = true,
-     -- additional_vim_regex_highlighting = true, 
+      additional_vim_regex_highlighting = true,  --REQUIRED for simple_highlighting
     },
   }
 EOF
@@ -230,7 +260,7 @@ EOF
 
     if 1
 		call minpac#add('nvim-lua/plenary.nvim')
-		call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
+		"call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
 
         " Using Lua functions
         nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -434,9 +464,24 @@ EOF
 "    let g_syntastic_deubg = 1
 
     
-    if 1
+    if 0
         call minpac#add('nathanaelkane/vim-indent-guides')
         let g:indent_guides_enable_on_vim_startup = 1
+    endif
+
+    if 1
+        call minpac#add('lukas-reineke/indent-blankline.nvim')
+lua << EOF
+--vim.opt.list = true
+--vim.opt.listchars:append "space:⋅"
+--vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
+EOF
     endif
 
     call minpac#add('luochen1990/rainbow')
@@ -574,23 +619,23 @@ command! Uncrustify  let s:save_cursor = getcurpos()
     :nnoremap <A-l> <C-w>l
 "}}}
 
-" termical colours '[ark pastels] {{{
-let g:terminal_color_0  = "#3f3f3f"
-let g:terminal_color_1  = "#705050"
-let g:terminal_color_2  = "#60b48a"
-let g:terminal_color_3  = "#dfaf8f"
-let g:terminal_color_4  = "#9ab8d7"
-let g:terminal_color_5  = "#ec93d3"
-let g:terminal_color_6  = "#8cd0d3"
-let g:terminal_color_7  = "#dcdccc"
-let g:terminal_color_8  = "#709080"
-let g:terminal_color_9  = "#dca3a3"
-let g:terminal_color_10 = "#72d5a3"
-let g:terminal_color_11 = "#f0dfaf"
-let g:terminal_color_12 = "#9ab8d7"
-let g:terminal_color_13 = "#dc8cc3"
-let g:terminal_color_14 = "#93e0e3"
-let g:terminal_color_15 = "#ffffff"
+"" termical colours '[ark pastels] {{{
+"let g:terminal_color_0  = "#3f3f3f"
+"let g:terminal_color_1  = "#705050"
+"let g:terminal_color_2  = "#60b48a"
+"let g:terminal_color_3  = "#dfaf8f"
+"let g:terminal_color_4  = "#9ab8d7"
+"let g:terminal_color_5  = "#ec93d3"
+"let g:terminal_color_6  = "#8cd0d3"
+"let g:terminal_color_7  = "#dcdccc"
+"let g:terminal_color_8  = "#709080"
+"let g:terminal_color_9  = "#dca3a3"
+"let g:terminal_color_10 = "#72d5a3"
+"let g:terminal_color_11 = "#f0dfaf"
+"let g:terminal_color_12 = "#9ab8d7"
+"let g:terminal_color_13 = "#dc8cc3"
+"let g:terminal_color_14 = "#93e0e3"
+"let g:terminal_color_15 = "#ffffff"
 " }}}
 
 "{{{ " source $VIMRUNTIME/mswin.vim
