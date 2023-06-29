@@ -260,7 +260,7 @@ EOF
 
     if 1
 		call minpac#add('nvim-lua/plenary.nvim')
-		"call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
+		call minpac#add('nvim-telescope/telescope.nvim', { 'rev': '0.1.1' } )
 
         " Using Lua functions
         nnoremap <leader>ff <cmd>Telescope find_files<cr>
