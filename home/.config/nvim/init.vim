@@ -75,26 +75,6 @@ lua << END
 require('lualine').setup()
 END
     endif
-	if 0
-		call minpac#add('itchyny/lightline.vim')
-		let g:lightline = {
-		    \ 'colorscheme': 'wombat',
-		    \ 'active': {
-		    \   'left': [ [ 'mode', 'paste' ],
-		    \             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
-		    \ },
-		    \ 'component_function': {
-		    \   'gitbranch': 'FugitiveHead'
-		    \ },
-		    \ 'component' : {
-		    \   'filename': '%n^ %t'
-		    \ },
-            \ 'inactive': {
-            \   'left': [ [ 'filename', 'modified' ] ],
-            \   'right': [ [ 'lineinfo' ], [ 'percent' ] ]
-            \ }
-	    \ }
-	endif
 	if 1
         call minpac#add('airblade/vim-gitgutter')
 		nmap ]h <Plug>(GitGutterNextHunk)
@@ -102,14 +82,7 @@ END
         set updatetime=200 "ms (4000 is default)
 	endif
 
-    if 0
-        call minpac#add('preservim/tagbar')
-        let g:tagbar_position = 'topleft vertical'
-        nnoremap <silent> <leader><C-t> :TagbarToggle<CR>
-        nnoremap <silent> <leader><M-t> :TagbarOpen fj<CR>
-    endif
-
-" let g:loaded_nvimgdb = 1  (to disable)
+    " let g:loaded_nvimgdb = 1  (to disable)
 	if 1
 		call minpac#add('sakhnik/nvim-gdb', { 'do': ':!./install.sh' })
 	endif
@@ -142,7 +115,6 @@ EOF
 
     if 1
 		call minpac#add('nvim-treesitter/nvim-treesitter-context')
-        highlight TreesitterContext guibg=black
     endif
 
     if 1
@@ -159,9 +131,13 @@ require'nvim-treesitter.configs'.setup {
 
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
+        ["am"] = "@function.outer",
+        ["im"] = "@function.inner",
         ["ac"] = "@class.outer",
+        ["ad"] = "@conditional.outer",
+        ["id"] = "@conditional.inner",
+        ["a-"] = "@comment.outer",
+        ["i-"] = "@comment.inner",
         -- You can optionally set descriptions to the mappings (used in the desc parameter of
         -- nvim_buf_set_keymap) which plugins like which-key display
         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
@@ -172,7 +148,7 @@ require'nvim-treesitter.configs'.setup {
       --
       -- Can also be a function which gets passed a table with the keys
       -- * query_string: eg '@function.inner'
-      -- * method: eg 'v' or 'o'
+      -- * method: eg 'v' or 'o
       -- and should return the mode ('v', 'V', or '<c-v>') or a table
       -- mapping query_strings to modes.
       selection_modes = {
@@ -200,12 +176,14 @@ require'nvim-treesitter.configs'.setup {
         ["<leader>A"] = "@parameter.inner",
       },
     },
-        move = {
+    move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
+        ["]d"] = "@conditional.outer",
         ["]]"] = { query = "@class.outer", desc = "Next class start" },
+        ["]-"] = "@comment.outer",
         --
         -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
         ["]o"] = "@loop.*",
@@ -218,25 +196,22 @@ require'nvim-treesitter.configs'.setup {
       },
       goto_next_end = {
         ["]M"] = "@function.outer",
+        ["]D"] = "@conditional.outer",
         ["]["] = "@class.outer",
+        ["]_"] = "@comment.outer",
       },
       goto_previous_start = {
         ["[m"] = "@function.outer",
+        ["[d"] = "@conditional.outer",
         ["[["] = "@class.outer",
+        ["[-"] = "@comment.outer",
       },
       goto_previous_end = {
         ["[M"] = "@function.outer",
+        ["[D"] = "@conditional.outer",
         ["[]"] = "@class.outer",
+        ["]_"] = "@comment.outer",
       },
-      -- Below will go to either the start or the end, whichever is closer.
-      -- Use if you want more granular movements
-      -- Make it even more gradual by adding multiple queries and regex.
-      goto_next = {
-        ["]d"] = "@conditional.outer",
-      },
-      goto_previous = {
-        ["[d"] = "@conditional.outer",
-      }
     },
   },
 }
@@ -275,33 +250,13 @@ EOF
 "        nnoremap <leader>fg :lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>
     endif
 
-
-	if 0
-	"	ripgrep seraching
-		call minpac#add('dyng/ctrlsf.vim')
-"		nmap     <C-A-F>f <Plug>CtrlSFPrompt
-"		vmap     <C-A-F>f <Plug>CtrlSFVwordPath
-"		vmap     <C-A-F>F <Plug>CtrlSFVwordExec
-"		nmap     <C-A-F>n <Plug>CtrlSFCwordPath
-"		nmap     <C-A-F>N <Plug>CtrlSFCCwordPath
-"		nmap     <C-A-F>p <Plug>CtrlSFPwordPath
-"		nnoremap <C-A-F>t :CtrlSFToggle<CR>
-	endif
-	
-
-    "https://github.com/junegunn/fzf/wiki/Examples-(vim)#jump-to-tags
+	"https://github.com/junegunn/fzf/wiki/Examples-(vim)#jump-to-tags
     command! -bar Tags if !empty(tagfiles()) | call fzf#run({
 \   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
 \   'sink':   'tag',
 \ }) | else | echo 'Preparing tags' | call system('ctags -R') | FZFTag | endif
 
     call minpac#add('godlygeek/tabular')
-
-    if 0 
-      call minpac#add('lervag/vimtex')
-      let g:vimtex_latexmk_options = '-pdf -verbose -file-line-error -synctex=1'
-      let g:vimtex_compiler_progname = 'nvr'
-    endif
 
     if 1
             " Track the engine.
@@ -464,11 +419,6 @@ EOF
 "    let g_syntastic_deubg = 1
 
     
-    if 0
-        call minpac#add('nathanaelkane/vim-indent-guides')
-        let g:indent_guides_enable_on_vim_startup = 1
-    endif
-
     if 1
         call minpac#add('lukas-reineke/indent-blankline.nvim')
 lua << EOF
@@ -801,6 +751,7 @@ endif
 
 try "apply apprentice colorscheme if we have it
   colorscheme material
+  highlight TreesitterContext guibg=black
 catch
   colorscheme torte "default inbuilt one
 endtry
