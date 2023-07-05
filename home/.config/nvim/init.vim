@@ -258,7 +258,7 @@ EOF
 
     call minpac#add('godlygeek/tabular')
 
-    if 1
+    if 0
             " Track the engine.
       call minpac#add('SirVer/ultisnips')
 
@@ -266,10 +266,10 @@ EOF
 "      call minpac#add('honza/vim-snippets')
 
       " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-	  let g:UltiSnipsListSnippets = "<C-\\><tab>" "keybinbding doesn't work for some reason 
-      let g:UltiSnipsExpandTrigger="<tab>"
-      let g:UltiSnipsJumpForwardTrigger="<tab>"
-      let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+	  let g:UltiSnipsListSnippets = "<C-\\><TAB>" "keybinbding doesn't work for some reason 
+      let g:UltiSnipsExpandTrigger="<TAB>"
+      let g:UltiSnipsJumpForwardTrigger="<TAB>"
+      let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 
     endif
 
